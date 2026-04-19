@@ -1,0 +1,61 @@
+services:
+  api: &main_app
+    build:
+      context: .
+      target: dev
+      dockerfile: ./Dockerfile
+    image: oa_vibe_api:${OA_VIBE_API_VERSION:-latest}
+    restart: always
+    ports:
+      # Exposes application port.
+    - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      db:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+    environment:
+      OA_VIBE_API_HOST: 0.0.0.0
+      OA_VIBE_API_RELOAD: "True"
+      OA_VIBE_API_DB_HOST: oa_vibe_api-db
+      OA_VIBE_API_DB_PORT: 5432
+      OA_VIBE_API_DB_USER: oa_vibe_api
+      OA_VIBE_API_DB_PASS: oa_vibe_api
+      OA_VIBE_API_DB_BASE: oa_vibe_api
+    volumes:
+      - .:/app/src/
+
+  db:
+    image: postgres:18.3-trixie
+    hostname: oa_vibe_api-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "oa_vibe_api"
+      POSTGRES_USER: "oa_vibe_api"
+      POSTGRES_DB: "oa_vibe_api"
+    volumes:
+      - oa_vibe_api-db-data:/var/lib/postgresql
+    restart: always
+    healthcheck:
+      test: pg_isready -U oa_vibe_api
+      interval: 2s
+      timeout: 3s
+      retries: 40
+
+  migrator:
+    <<: *main_app
+    restart: "no"
+    command: aerich upgrade
+    depends_on:
+      db:
+        condition: service_healthy
+
+
+
+volumes:
+  oa_vibe_api-db-data:
+    name: oa_vibe_api-db-data

@@ -20,6 +20,10 @@ class User(Model):
     position: fields.ForeignKeyRelation["Position"] = fields.ForeignKeyField(
         "models.Position", related_name="users", null=True, on_delete=fields.SET_NULL
     )
+    role: fields.ForeignKeyRelation["Role"] = fields.ForeignKeyField(
+        "models.Role", related_name="users", null=True, on_delete=fields.SET_NULL
+    )
+    is_superuser: fields.BooleanField(default=False, description="超级管理员标志")
 
     class Meta:
         table = "sys_user"

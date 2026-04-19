@@ -1,6 +1,6 @@
 """Menu service."""
-from typing import Optional, List
-from oa_vibe_api.db.models import Menu
+from typing import Optional, List, Set
+from oa_vibe_api.db.models import Menu, User
 
 
 class MenuService:
@@ -47,6 +47,40 @@ class MenuService:
             else:
                 tree.append(node)
         return tree
+
+    @staticmethod
+    async def get_user_menus(user: User) -> List[dict]:
+        """Get menus accessible by user's role.
+
+        If user is superuser, return all menus.
+        Otherwise, filter menus based on user's role permissions.
+        """
+        # Superuser gets all menus
+        if user.is_superuser:
+            menus = await Menu.filter(status=1).order_by("sort", "id")
+            return MenuService._build_tree(menus)
+
+        # Get user's role
+        if not user.role_id:
+            # No role assigned, return empty menu tree
+            return []
+
+        # Get menu IDs from role's permissions
+        from oa_vibe_api.db.models import RolePermission, Permission
+
+        # Query: RolePermission → Permission → Menu
+        role_permissions = await RolePermission.filter(role_id=user.role_id).select_related("permission")
+        menu_ids: Set[int] = set()
+        for rp in role_permissions:
+            if rp.permission and rp.permission.menu_id:
+                menu_ids.add(rp.permission.menu_id)
+
+        if not menu_ids:
+            return []
+
+        # Get menus and build tree
+        menus = await Menu.filter(id__in=menu_ids, status=1).order_by("sort", "id")
+        return MenuService._build_tree(menus)
 
     @staticmethod
     async def update_menu(

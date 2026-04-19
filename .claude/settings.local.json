@@ -4,7 +4,8 @@
       "Bash(.venv/Scripts/python.exe -c \":*)",
       "Bash(openspec instructions:*)",
       "Bash(openspec status:*)",
-      "Bash(openspec apply:*)"
+      "Bash(openspec apply:*)",
+      "Bash(openspec new:*)"
     ]
   }
 }

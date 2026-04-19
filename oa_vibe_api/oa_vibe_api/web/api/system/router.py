@@ -443,6 +443,12 @@ async def get_menu_tree(current_user: User = Depends(get_current_user)):
     return await menu_service.get_menu_tree()
 
 
+@router.get("/menus/user")
+async def get_user_menus(current_user: User = Depends(get_current_user)):
+    """Get menus accessible by current user's role."""
+    return await menu_service.get_user_menus(current_user)
+
+
 @router.patch("/menus/{menu_id}", response_model=MenuResponse)
 async def update_menu(
     menu_id: int,

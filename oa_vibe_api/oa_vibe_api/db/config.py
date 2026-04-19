@@ -6,6 +6,7 @@ MODELS_MODULES: list[str] = [
     "oa_vibe_api.db.models.permission",
     "oa_vibe_api.db.models.position",
     "oa_vibe_api.db.models.role",
+    "oa_vibe_api.db.models.role_permission",
     "oa_vibe_api.db.models.user",
     "oa_vibe_api.db.models.leave_request",
 ]

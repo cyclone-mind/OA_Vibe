@@ -4,6 +4,7 @@ from oa_vibe_api.db.models.menu import Menu
 from oa_vibe_api.db.models.permission import Permission
 from oa_vibe_api.db.models.position import Position
 from oa_vibe_api.db.models.role import Role
+from oa_vibe_api.db.models.role_permission import RolePermission
 from oa_vibe_api.db.models.user import User
 from oa_vibe_api.db.models.leave_request import LeaveRequest
 
@@ -13,6 +14,7 @@ __all__ = [
     "Permission",
     "Position",
     "Role",
+    "RolePermission",
     "User",
     "LeaveRequest",
 ]

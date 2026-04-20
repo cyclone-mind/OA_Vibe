@@ -5,7 +5,13 @@
       "Bash(openspec instructions:*)",
       "Bash(openspec status:*)",
       "Bash(openspec apply:*)",
-      "Bash(openspec new:*)"
+      "Bash(openspec new:*)",
+      "Bash(npm --version)",
+      "Bash(printf 'n\\\\nn\\\\ny\\\\ny\\\\nn\\\\nn\\\\nn\\\\n')",
+      "Bash(npm create:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(cd:*)"
     ]
   }
 }

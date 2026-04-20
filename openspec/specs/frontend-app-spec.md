@@ -320,14 +320,67 @@ interface LeaveRequest {
 
 ## 项目结构
 
-待使用官方命令行初始化项目后后再定义项目结构
+```
+web/
+├── index.html
+├── package.json
+├── vite.config.js
+├── public/
+│   └── favicon.svg
+└── src/
+    ├── main.js                 # 应用入口
+    ├── App.vue                 # 根组件
+    ├── api/                    # API 请求封装
+    │   ├── request.js          # Axios 实例 + 拦截器
+    │   ├── auth.js             # 认证相关 API
+    │   ├── user.js             # 用户管理 API
+    │   ├── menu.js             # 菜单管理 API
+    │   ├── leave.js            # 请假管理 API
+    │   ├── department.js       # 部门管理 API
+    │   ├── position.js         # 职位管理 API
+    │   ├── role.js             # 角色管理 API
+    │   └── permission.js       # 权限管理 API
+    ├── router/
+    │   └── index.js            # 路由配置 + 守卫
+    ├── stores/                 # Pinia 状态管理
+    │   ├── user.js              # 用户信息、Token
+    │   ├── menu.js              # 菜单树、权限菜单
+    │   ├── tab.js               # Tab 页列表、当前 Tab
+    │   └── leave.js             # 请假单列表
+    ├── views/                  # 页面组件
+    │   ├── layout/              # 布局组件
+    │   │   ├── MainLayout.vue   # 主布局
+    │   │   ├── Header.vue       # 顶部栏
+    │   │   ├── SideMenu.vue     # 左侧菜单
+    │   │   └── TabNav.vue       # Tab 导航
+    │   ├── login/
+    │   │   └── Login.vue        # 登录页
+    │   ├── dashboard/
+    │   │   └── Dashboard.vue    # 首页
+    │   ├── leave/
+    │   │   └── Leave.vue        # 请假管理
+    │   ├── approval/
+    │   │   └── Approval.vue     # 审批中心
+    │   ├── profile/
+    │   │   └── Profile.vue      # 个人中心
+    │   └── system/              # 系统管理
+    │       ├── Users.vue        # 用户管理
+    │       ├── Departments.vue  # 部门管理
+    │       ├── Positions.vue    # 职位管理
+    │       ├── Roles.vue        # 角色管理
+    │       ├── Menus.vue        # 菜单管理
+    │       └── Permissions.vue  # 权限管理
+    └── assets/                  # 静态资源
+```
 
 ## 下一步
 
 1. ~~确认后端权限控制方案（是否需要补充用户-角色关联）~~ ✅ 后端 RBAC 已实现
-2. 创建登录页面和布局框架
-3. 实现请求/响应拦截器
-4. 实现路由守卫
-5. 实现系统管理模块页面（用户/部门/职位/角色/菜单/权限）
-6. 实现业务模块页面（请假/审批）
-7. 实现首页和个人中心
+2. ~~创建登录页面和布局框架~~ ✅ 已完成
+3. ~~实现请求/响应拦截器~~ ✅ 已完成
+4. ~~实现路由守卫~~ ✅ 已完成
+5. ~~实现系统管理模块页面（用户/部门/职位/角色/菜单/权限）~~ ✅ 已完成
+6. ~~实现业务模块页面（请假/审批）~~ ✅ 已完成
+7. ~~实现首页和个人中心~~ ✅ 已完成
+8. 前后端联调测试
+9. 补充 Mock 数据和真实 API 替换
